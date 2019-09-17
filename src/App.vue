@@ -20,21 +20,17 @@
               <div class="caption">Équipement</div>
               {{ save.selection.product }}
             </div>
-            <div>
+            <div class="date">
               <div class="caption">Date de création</div>
               {{ savedDate(save.date) }}
             </div>
-            <a class="btnsave" @click.prevent="loadEquipement(save.selection)"
-              >Voir l'équipement</a
-            >
+            <a class="btnsave" @click.prevent="loadEquipement(save.selection)">Voir l'équipement</a>
           </li>
         </ul>
       </div>
     </div>
 
-    <button class="triggersave btnsave" @click.prevent="open = !open">
-      Consultez vos équipements
-    </button>
+    <button class="triggersave btnsave" @click.prevent="open = !open">Consultez vos équipements</button>
   </div>
 </template>
 
@@ -64,7 +60,7 @@ export default {
       });
     },
     loadEquipement(selection) {
-      this.$cookie.set("loadpassau", JSON.stringify(selection), 1);
+      localStorage.setItem("loadpassau", JSON.stringify(selection));
       window.location.search =
         "?p=11&step=2&type=" +
         selection.type +
@@ -117,25 +113,35 @@ body {
     list-style: none;
   }
   li {
-    padding: 0;
+    padding: 5px 0;
     margin: 0;
     list-style: none;
     display: flex;
     justify-content: space-between;
     align-items: center;
     text-align: left;
+    font-size: 12px;
+    @media screen and (min-width: 768px) {
+      font-size: 17px;
+    }
   }
   .caption {
-    font-size: 700;
+    font-weight: 700;
+  }
+  .date {
+    display: none;
+    @media screen and (min-width: 768px) {
+      display: block;
+    }
   }
 }
 .btnsave {
   background-color: #00adee;
-  padding: 15px 42px;
+  padding: 10px 15px;
   border-radius: 50px;
   width: auto;
   display: inline-block;
-  font-size: 17px;
+  font-size: 12px;
   font-weight: 300;
   font-style: normal;
   font-stretch: normal;
@@ -150,13 +156,23 @@ body {
     border: 1px solid #00adee;
     color: #00adee;
   }
+  @media screen and (min-width: 768px) {
+    font-size: 17px;
+    padding: 15px 42px;
+    display: block;
+  }
 }
 .thumb {
-  width: 75px;
-  height: 75px;
+  width: 50px;
+  height: 50px;
   background: hsl(0, 0, 85);
   border-radius: 100%;
   position: relative;
+
+  @media screen and (min-width: 768px) {
+    width: 75px;
+    height: 75px;
+  }
 
   img {
     width: 60%;
